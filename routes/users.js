@@ -4,6 +4,7 @@ const router = express.Router()
 const USERNAME = 'Demo User'
 const USEREMAIL = 'demo@example.com'
 const USERPASSWORD = 'demo1234'
+const PASSWORD_MIN_LENGTH = 8
 
 router.get('/welcome', function (req, res, next) {
   // console.log('Cookies: ', req.cookies)
@@ -18,7 +19,7 @@ router.get('/welcome', function (req, res, next) {
 router.post('/', function (req, res, next) {
   // console.log('User credentials:', req.body.email)
 
-  if (req.body.password.length < 8) {
+  if (req.body.password.length < PASSWORD_MIN_LENGTH) {
     res.redirect('/?msg=password_too_short')
     return
   }
