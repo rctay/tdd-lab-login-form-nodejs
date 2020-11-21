@@ -18,6 +18,11 @@ router.get('/welcome', function (req, res, next) {
 router.post('/', function (req, res, next) {
   // console.log('User credentials:', req.body.email)
 
+  if (req.body.password.length < 8) {
+    res.redirect('/?msg=password_too_short')
+    return
+  }
+
   if (req.body.email === USEREMAIL && req.body.password === USERPASSWORD) {
     res.cookie('username', USERNAME)
     res.cookie('lastLogin', Date.now())
