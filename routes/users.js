@@ -19,18 +19,21 @@ router.get('/welcome', function (req, res, next) {
 router.post('/', function (req, res, next) {
   // console.log('User credentials:', req.body.email)
 
-  if (req.body.password.length < PASSWORD_MIN_LENGTH) {
-    res.redirect('/?msg=password_too_short')
+  if (req.body.email === USEREMAIL) {
+    if (req.body.password === USERPASSWORD) {
+      res.cookie('username', USERNAME)
+      res.cookie('lastLogin', Date.now())
+      res.redirect('/users/welcome')
+      return
+    }
+    if (req.body.password && req.body.password.length < PASSWORD_MIN_LENGTH) {
+      res.redirect('/?msg=password_too_short')
+      return
+    }
+    res.redirect('/?msg=invalid_credentials')
     return
   }
-
-  if (req.body.email === USEREMAIL && req.body.password === USERPASSWORD) {
-    res.cookie('username', USERNAME)
-    res.cookie('lastLogin', Date.now())
-    res.redirect('/users/welcome')
-  } else {
-    res.redirect('/?msg=invalid_credentials')
-  }
+  res.redirect('/?msg=invalid_credentials')
 })
 
 router.get('/logout', function (req, res) {
