@@ -1,6 +1,5 @@
 const request = require('supertest')
 const app = require('../app')
-const assert = require('assert')
 
 describe('POST /users', function () {
   it('login with username and password', function (done) {
