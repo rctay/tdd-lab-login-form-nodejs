@@ -13,6 +13,9 @@ router.get('/', function (req, res, next) {
       case 'invalid_credentials':
         responseData.errorMsg = 'Invalid user login.'
         break
+      case 'password_too_short':
+        responseData.errorMsg = 'Your password is too short.'
+        break
       case 'logged_out':
         responseData.successMsg = 'You have successfully logged out.'
         break
